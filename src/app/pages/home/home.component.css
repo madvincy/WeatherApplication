@@ -1,0 +1,18 @@
+/*Home Layout*/
+.main__container {
+  background: linear-gradient( #e0ff03, #0821fc);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(auto-fill, 1fr);
+  align-items: center;
+  justify-items: center;
+  height: 100%;
+}
+.search-component{
+  align-items: center;
+}
+.input-group.md-form.form-sm.form-1 input{
+  border: 1px solid #bdbdbd;
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
