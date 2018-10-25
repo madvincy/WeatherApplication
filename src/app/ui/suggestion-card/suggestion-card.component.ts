@@ -13,9 +13,9 @@ export class SuggestionCardComponent implements OnInit {
   constructor(public weather: WeatherService) { }
 
   ngOnInit() {
-    this.weather.getWeatherState(this.city)
-      .subscribe((data: string) => {
+    this.weather.getWeatherState(this.city).subscribe((data: string) => {
         this.condition = data;
+        console.log('swifi',this.condition);
       });
   }
 

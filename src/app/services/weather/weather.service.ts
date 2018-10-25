@@ -1,24 +1,58 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject, Observable, of, observable } from 'rxjs';
 import { City } from '../../weather';
+import { moodactivity } from '../../moodactivity';
+import { Customer } from '../../customer';
 import { catchError, map, tap } from 'rxjs/operators';
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 
 @Injectable()
 export class WeatherService {
-  private _url: string = "https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246";
+  private customersUrl = 'http://localhost:8080/api/customers'; 
 
   constructor(public http: HttpClient) {
   }
+  getCustomers (): Observable<Customer[]> {
+    return this.http.get<Customer[]>(this.customersUrl)
+   
+  }
+
+  getCustomer(id: number): Observable<Customer> {
+    const url = `${this.customersUrl}/${id}`;
+    return this.http.get<Customer>(url);
+  }
+
+  addCustomer (customer: Customer): Observable<Customer> {
+    return this.http.post<Customer>(this.customersUrl, customer, httpOptions);
+    
+  }
+
+  deleteCustomer (customer: Customer | number): Observable<Customer> {
+    const id = typeof customer === 'number' ? customer : customer.id;
+    const url = `${this.customersUrl}/${id}`;
+
+    return this.http.delete<Customer>(url, httpOptions);
+  }
+
+  updateCustomer (customer: Customer): Observable<any> {
+    return this.http.put(this.customersUrl, customer, httpOptions);
+  }
   getWeather (city: string,metric: 'metric'| 'imperial' = 'metric'): Observable <any>{
-    const apicall ='https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&APPID=${this._url}';
-    console.log("apicall", apicall);
+    const apicall =`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`;
     return this.http.get<any>(apicall).pipe(map(resp=>{
-      const weather =resp.weather[0];
+      console.log(resp)
+      const state =resp.weather[0];
       const name = resp.name;
-      const temp =resp.main.temp;
-      const x ={ weather, temp, name};
+      const humidity =resp.main.humidity;
+      const wind = (Math.round(Math.round(resp.wind.speed)));
+      const tempmax = (Math.round(Number(resp.main.temp_max)));
+      const tempmin = (Math.round(Number(resp.main.temp_min)));
+      const temp = (Math.round(Number(resp.main.temp)));
+      const x ={ state, temp, wind, humidity,tempmax,tempmin, name};
       return x;
     }))
 
@@ -35,15 +69,7 @@ export class WeatherService {
       });
     return dataSub;
   }
-    /* GET heroes whose name contains search term */
-    searchCities(term: string, metric: 'metric' | 'imperial' = 'metric'): Observable<City[]> {
-      if (!term.trim()) {
-        // if not search term, return empty hero array.
-        return of([]);
-      }
-      return this.http.get<City[]>(`https://api.openweathermap.org/data/2.5/weather?q=${term}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
-    }
-
+    
   getCitiesWeathersByNames(cities: Array<string>, metric: 'metric' | 'imperial' = 'metric'): Subject<any> {
     const citiesSubject = new Subject();
     cities.forEach((city) => {
@@ -59,84 +85,18 @@ export class WeatherService {
       `https://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
       .subscribe((data) => {
         dataSubject.next(data['weather'][0].main);
+        console.log(dataSubject,'fete');
       });
     return dataSubject;
   }
-
-  getCurrentTemp(city: string, metric: 'metric' | 'imperial' = 'metric'): Subject<number> {
-    const dataSubject = new Subject<number>();
-    this.http.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
-      .subscribe((weather: any) => {
-        dataSubject.next(Math.round(Number(weather.main.temp)));
-      });
-    return dataSubject;
-  }
-
-
-  getCurrentHum(city: string, metric: 'metric' | 'imperial' = 'metric'): Subject<number> {
-    const dataSubject = new Subject<number>();
-    this.http.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
-      .subscribe((weather: any) => {
-        console.log(weather);
-        dataSubject.next(weather.main.humidity);
-      });
-    return dataSubject;
-  }
-
-
-  getCurrentWind(city: string, metric: 'metric' | 'imperial' = 'metric'): Subject<number> {
-    const dataSubject = new Subject<number>();
-    this.http.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
-      .subscribe((weather: any) => {
-        dataSubject.next(Math.round(Math.round(weather.wind.speed)));
-      });
-    return dataSubject;
-  }
-
-
-  getMaxTemp(city: string, metric: 'metric' | 'imperial' = 'metric'): Subject<number> {
-    const dataSubject = new Subject<number>();
-    let max: number;
-    this.http.get(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
-      .subscribe((weather: any) => {
-        max = weather.list[0].main.temp;
-        weather.list.forEach((value) => {
-          if (max < value.main.temp) {
-            max = value.main.temp;
-          }
-        });
-        dataSubject.next(Math.round(max));
-      });
-    return dataSubject;
-  }
-
-  getMinTemp(city: string, metric: 'metric' | 'imperial' = 'metric'): Subject<number> {
-    const dataSubject = new Subject<number>();
-    let min: number;
-    this.http.get(
-      `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
-      .subscribe((weather: any) => {
-        min = weather.list[0].main.temp;
-        weather.list.forEach((value) => {
-          if (min > value.main.temp) {
-            min = value.main.temp;
-          }
-        });
-        dataSubject.next(Math.round(min));
-      });
-    return dataSubject;
-  }
-
+ 
   getForecast(city: string, metric: 'metric' | 'imperial' = 'metric'): Subject<Array<any>> {
     const dataSubject = new Subject<Array<any>>();
     this.http.get(
       `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
       .subscribe((weather: any) => {
-        dataSubject.next(weather.list);
+        dataSubject.next(weather);
+        console.log('seke',dataSubject);
       });
     return dataSubject;
   }

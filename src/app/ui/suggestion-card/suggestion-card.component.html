@@ -1,4 +1,4 @@
-<div class="add__card"  [ngClass]="{'add__card-dark': darkMode}">
+<div class="add__card"  >
     <div class="header__container">
       <span class="card__title">Suggestions</span>
     </div>
@@ -18,9 +18,11 @@
                          <img src="../../../assets/images/washclothes.jpg">
                         <li>wash your clothes today</li>
                         <img src="../../../assets/images/COFFEE-DATE.png">
-                         <li>take  girlfriend out for coffee or ice cream</li>
+                         <li>take  girlfriend out for coffee </li>
+                         <img src="../../../assets/images/COFFEE-DATE.png">
+                         <li>take  girlfriend out for  ice cream</li>
                 </ul>
-                    
+           
                 </div>
                 <div  *ngSwitchCase="condition === ''">  
                      <p  >wash his clothes today or take  girlfriend out for coffee or ice cream</p>
@@ -35,5 +37,6 @@
       
      
     </div>
+    <span class="city-name__text">{{condition}}</span>
   </div>
   

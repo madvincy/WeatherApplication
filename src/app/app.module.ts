@@ -10,7 +10,6 @@ import {WeatherService} from './services/weather/weather.service';
 import {HttpClientModule} from '@angular/common/http';
 import {WeatherCardComponent} from './ui/weather-card/weather-card.component';
 import {AddCardComponent} from './ui/add-card/add-card.component';
-import {UiService} from './services/ui/ui.service';
 import { SuggestionCardComponent } from './ui/suggestion-card/suggestion-card.component';
 
 import { GeolocationService } from './geolocation.service';
@@ -36,7 +35,7 @@ import { FormsModule } from '@angular/forms';
   ],
   providers: [
     WeatherService,
-    UiService,
+    
     GeolocationService
 
   ],

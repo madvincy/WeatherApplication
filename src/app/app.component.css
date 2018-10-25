@@ -143,20 +143,21 @@
 /*Header*/
 .main__header {
   width: 100%;
+  align-items: center;
   display: grid;
-  grid-template-columns: 1fr 1fr 0.25fr;
+  background-color: #04407c;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   box-shadow: 0 0 2rem rgba(0, 0, 255, 0.1);
-  height: 4rem;
+  height: rem;
   margin: 0;
-  align-items: center;
   transition: background-color 500ms linear;
   animation: fadein 1s ease-in-out 0ms 1;
 }
 
 .main__header-dark {
   background-color: #2B244D;
-  color: white;
+  color: #2B244D;
 }
 
 .toggle-button__container {
@@ -205,16 +206,16 @@
 
 /*Content*/
 .left__section {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr;
-  max-width: 5rem;
+  align-content: left;
+  
+}
+.centre__section {
+  align-content: centre;
+ 
 }
 .right__section {
-  display: grid;
-  grid-template-rows: 1fr;
-  grid-template-columns: 1fr 1fr;
-  max-width: 5rem;
+  align-content: right;
+  
 }
 
 .date__text {
@@ -240,7 +241,7 @@
 }
 
 .logo__text {
-  fill: #2B244D;
+  fill: #e0ff03;
 }
 
 .logo__text-dark {
@@ -273,10 +274,54 @@
   left: 0;
   z-index: -2;
   opacity: 0;
-  background: white;
+  background: rgb(38, 4, 231);
   transition: opacity 300ms linear;
 }
+.search {
+  width: 100%;
+  position: relative
+}
 
+.searchTerm {
+  float: left;
+  margin: 20px;
+  width: 75%;
+  border: 3px solid #00B4CC;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+.searchButton {
+  position: absolute;  
+  right: px;
+  width: 80px;
+  height: 35px;
+  margin-left: -20px;
+  margin-top: 20px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .main-container__bg-dark {
   opacity: 1;
   background: linear-gradient(to bottom, #B290FF, #2E1D65);

@@ -103,11 +103,11 @@ Weather Card Styling
 }
 
 .max__text {
-  color: #FF0070;
+  color: yellow;
 }
 
 .min__text {
-  color: #00FF9B;
+  color: blue;
 }
 
 .max__text, .min__text {

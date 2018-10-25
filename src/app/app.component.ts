@@ -1,5 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {UiService} from './services/ui/ui.service';
+import {Router} from '@angular/router';
+import { WeatherService } from './services/weather/weather.service';
+import{ Customer} from '../app/customer'
+
+
 
 @Component({
   selector: 'app-root',
@@ -7,20 +11,34 @@ import {UiService} from './services/ui/ui.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  addcity: string;
   showMenu = false;
-  darkModeActive: boolean;
+  customers: Customer[];
 
-  constructor(public ui: UiService) {
+  constructor( public router: Router, public weather: WeatherService) {
+    
 
   }
 
   ngOnInit() {
-    this.ui.darkModeState.subscribe((value) => {
-      this.darkModeActive = value;
-    });
+    
   }
 
   toggleMenu() {
     this.showMenu = !this.showMenu;
   }
+  search(){
+    this.router.navigateByUrl('/details/'+this.addcity);
+    
+
+  }
+  getCustomers() {
+    return this.weather.getCustomers()
+               .subscribe(
+                 customers => {
+                  console.log('magsahgdhas',customers);
+                  this.customers = customers
+                 }
+                );
+ }
 }

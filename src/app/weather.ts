@@ -1,5 +1,9 @@
 export class City {
     
-    city: string;
+    addcity: string;
+    id: number;
+    mood: string;
+   activity: string;
+    
   }
   

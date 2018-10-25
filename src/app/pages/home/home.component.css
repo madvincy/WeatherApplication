@@ -3,7 +3,7 @@
   background: linear-gradient( #e0ff03, #0821fc);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(auto-fill, 1fr);
+  grid-template-rows: repeat(1fr , 3fr);
   align-items: center;
   justify-items: center;
   height: 100%;

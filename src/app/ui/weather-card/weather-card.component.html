@@ -51,25 +51,25 @@
 
   </div>
   <div class="temperature-text__container">
-    <span class="temperature__text">{{ currentTemp }}</span>
+    <span class="temperature__text">{{ tod.temp }}</span>
     <span class="temperature-metric__text">°</span>
-    <span class="weather-condition__text">{{ condition }}</span>
+    <span class="weather-condition__text">{{ state }}</span>
   </div>
   <section class="min-max__container">
     <div class="min__container">
       <svg class="min-arrow__icon" viewBox="188.5 807 21 21">
-        <path fill="#00ff9b" d="M209.5 817.5h-21L199 828z" data-name="Min Arrow"/>
+        <path fill="blue" d="M209.5 817.5h-21L199 828z" data-name="Min Arrow"/>
       </svg>
 
-      <span class="min-temperature__text">{{ minTemp }}</span>
-      <span class="min__text">Min</span>
+      <span class="min-temperature__text">{{tod.tempmin }}</span>
+      <span class="min__text">Min Temp</span>
     </div>
     <div class="max__container">
       <svg class="max-arrow__icon" viewBox="449.5 820 21 21">
-        <path fill="red" d="M449.5 830.5h21L460 820z" data-name="Max Arrow"/>
+        <path fill="yellow" d="M449.5 830.5h21L460 820z" data-name="Max Arrow"/>
       </svg>
-      <span class="max-temperature__text">{{ maxTemp }}</span>
-      <span class="max__text">Max</span>
+      <span class="max-temperature__text">{{ tod.tempmax }}</span>
+      <span class="max__text">Max Temp</span>
     </div>
   </section>
   <div class="today-weather__container">
@@ -78,14 +78,14 @@
       <div class="hum-wind__container">
         <div class="hum__container">
           <span class="hum__text">humidity</span>
-          <span class="hum-value__text">{{hum}} %</span>
+          <span class="hum-value__text">{{tod.humidity}} %</span>
         </div>
 
         <div class="hum-wind__separator">&nbsp;</div>
 
         <div class="wind__container">
           <span class="wind__text">wind</span>
-          <span class="wind-value__text">{{wind}} K/M</span>
+          <span class="wind-value__text">{{tod.wind}} K/M</span>
         </div>
       </div>
     </div>

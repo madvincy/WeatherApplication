@@ -1,7 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {WeatherService} from '../../services/weather/weather.service';
-import {UiService} from '../../services/ui/ui.service';
 
 @Component({
   selector: 'app-weather-card',
@@ -18,6 +17,8 @@ export class WeatherCardComponent implements OnInit, OnDestroy {
    city = 'Eldoret';
    hum: number;
   wind: number;
+  tod: string;
+  state: string;
   constructor(public weather: WeatherService,
               public router: Router,
               ) {
@@ -31,17 +32,15 @@ export class WeatherCardComponent implements OnInit, OnDestroy {
         this.condition = data;
         console.log (data, 'data get weather state');
       });
-      this.weather.getCurrentHum(this.city).subscribe((humidity) => this.hum = humidity);
-      this.weather.getCurrentWind(this.city).subscribe((windspeed) => this.wind = windspeed);
-      this.weather.getCurrentTemp(this.city).subscribe((data: number) => {
-      this.currentTemp = data;
-    });
-    this.weather.getMinTemp(this.city).subscribe((data: number) => {
-      this.minTemp = data;
-    });
-    this.weather.getMaxTemp(this.city).subscribe((data: number) => {
-      this.maxTemp = data;
-    });
+      this.weather.getWeather(this.city).subscribe(res => {
+        console.log (res ,'ryt');
+        this.tod=res;
+      var state = res.state.main;
+       console.log(state,'status');
+        });
+        
+        this.weather.getWeatherState(this.city).subscribe((state) => this.state = state);
+  
   }
 
   ngOnDestroy() {
