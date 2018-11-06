@@ -60,9 +60,9 @@
               transform="translate(4302 163)"/>
       </svg>
 
-      <div class="header-content__wrapper">
+      <div *ngIf="tod" class="header-content__wrapper">
 
-        <div class="today-weather__container">
+        <div  class="today-weather__container">
            <!--{{today}}-->
            <div class="temp-state__container">
             <span class="temperature__text">{{tod.temp}}°</span>
@@ -114,6 +114,20 @@
                 <div class=hit></div>
                 <div class=hit></div>
                 <div class=hit></div>
+              </div>
+            </div>
+            <div *ngSwitchCase="state === 'SMOKE'">
+              <div id="smoke">
+                <span class="s0"></span>
+                <span class="s1"></span>
+                <span class="s2"></span>
+                <span class="s3"></span>
+                <span class="s4"></span>
+                <span class="s5"></span>
+                <span class="s6"></span>
+                <span class="s7"></span>
+                <span class="s8"></span>
+                <span class="s9"></span>
               </div>
             </div>
         

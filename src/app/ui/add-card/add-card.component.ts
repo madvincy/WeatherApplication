@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WeatherService} from '../../services/weather/weather.service';
 import { City } from '../../weather'
-import{ Customer} from '../../customer'
+import{ Moodsactivity} from '../../moodsactivity'
 @Component({
   selector: 'app-add-card',
   templateUrl: './add-card.component.html',
@@ -11,12 +11,17 @@ import{ Customer} from '../../customer'
 export class AddCardComponent implements OnInit {
   city: string;
   state: string;
+  weathere: string;
+  weathered: string;
   temp: number;
+  tempe: number;
   hum: number;
   wind: number;
-  customers: Customer[];
+  moodactivities: Moodsactivity[];
+ 
 
   today: string;
+  tod;
 
  
   citie='eldoret';
@@ -24,7 +29,7 @@ export class AddCardComponent implements OnInit {
   submitted = false;
 
 
-  customer = new Customer();
+  moodsactivity = new Moodsactivity();
  
  
 
@@ -35,7 +40,10 @@ export class AddCardComponent implements OnInit {
 
   ngOnInit() {
     this.forecast=[];
-   
+    
+
+    
+    
 
     
 
@@ -51,8 +59,11 @@ export class AddCardComponent implements OnInit {
         });
       
         
-   this.weather.getWeatherState(this.city).subscribe((state) => this.state = state);
-      
+   this.weather.getWeatherState('Eldoret').subscribe((state) => {
+     this.weathere = state;
+     console.log("todajjy", this.weathere)
+     this.moodsactivity.weathere=this.weathere;
+   })
      
 
       this.weather.getForecast(this.city || this.citie).subscribe((data: any) => {
@@ -66,14 +77,21 @@ export class AddCardComponent implements OnInit {
       });
 
     });
+    this.weather.getWeather(this.city).subscribe(res => {
+      console.log (res ,'ryt');
+      this.tod=res;
+     console.log(this.tod.tempe,"expected temp");
+     this.moodsactivity.tempe= this.tod.temp;
+     this.moodsactivity.city=this.city;
+      });
    
   }
-  newCustomer(): void {
+  newMoodsactivities(): void {
     this.submitted = false;
-    this.customer = new Customer();
+    this.moodsactivity = new Moodsactivity();
   }
 
- addCustomer() {
+  addMoodactivities() {
    this.submitted = true;
    this.save();
  }
@@ -81,18 +99,12 @@ export class AddCardComponent implements OnInit {
   
 
   private save(): void {
-    console.log(this.customer);
-    this.weather.addCustomer(this.customer,)
+ 
+    this.weather.getWeatherState(this.city).subscribe((state) => this.weathered = state);
+    this.weather.addMoodsactivity(this.moodsactivity)
         .subscribe();
+        console.log(this.moodsactivity,'siasa');
   }
-  getCustomers() {
-    return this.weather.getCustomers()
-               .subscribe(
-                 customers => {
-                  console.log(customers);
-                  this.customers = customers
-                 }
-                );
- }
+ 
 
 }

@@ -89,13 +89,13 @@
 <div class="add__card"  >
   <h3>Enter mood and Activity</h3>
 <div [hidden]="submitted">
-    <form #addCustomerForm="ngForm">
+    <form #addMoodsactivityForm="ngForm">
 
       <div class="form-group">
         <label for="mood">Mood</label>
-        <input type="text" class="form-control" id="firstname" placeholder="state your mood" 
+        <input type="text" class="form-control" id="mood" placeholder="state your mood" 
         required
-        [(ngModel)]="customer.mood" name="mood" #mood="ngModel">
+        [(ngModel)]="moodsactivity.mood" name="mood" #mood="ngModel">
         <div [hidden]="mood.valid || mood.pristine"
              class="alert alert-danger">
             Mood is required
@@ -104,29 +104,29 @@
       
       <div class="form-group">
         <label for="lastname">Activity</label>
-        <input type="text" class="form-control" id="lastname" placeholder="Give your Activity"
+        <input type="text" class="form-control" id="activity" placeholder="Give your Activity"
         required
-        [(ngModel)]="customer.activity" name="activity" #activity="ngModel">
+        [(ngModel)]="moodsactivity.activity" name="activity" #activity="ngModel">
         <div [hidden]="activity.valid || activity.pristine"
              class="alert alert-danger">
             Activity is required
         </div>
-      </div>
-      
-
-      
+      </div> 
+   
       <div class="btn-group btn-group-sm">
       
-      	<button type="button" class="btn btn-dark" (click)="addCustomer()" [disabled]="!addCustomerForm.form.valid">Add</button>
+      	<button type="button" class="btn btn-dark" (click)="addMoodactivities()" [disabled]="!addMoodsactivityForm.form.valid">Add</button>
       </div>
     </form>
 </div>
 
 <div [hidden]="!submitted">
-  <p>Submitted Successfully! -> <span class="badge badge-light">{{customer.mood}}  {{customer.activity}}</span></p>
+  <p>Submitted Successfully! -> <span class="badge badge-light">{{moodsactivity.mood}}  {{moodsactivity.activity}} </span></p>
 	<div class="btn-group btn-group-sm">
     	
-    	<button type="button" class="btn btn-dark" (click)="newCustomer(); addCustomerForm.reset()">Continue</button>
+    	<button type="button" class="btn btn-dark" (click)=" newMoodsactivities(); addMoodsactivityForm.reset()">Continue</button>
     </div>
 </div>
+{{allData}}
+
 </div>

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import { WeatherService } from './services/weather/weather.service';
-import{ Customer} from '../app/customer'
+import{ Moodsactivity} from '../app/moodsactivity'
 
 
 
@@ -13,7 +13,7 @@ import{ Customer} from '../app/customer'
 export class AppComponent implements OnInit {
   addcity: string;
   showMenu = false;
-  customers: Customer[];
+  moodactivities: Moodsactivity[];
 
   constructor( public router: Router, public weather: WeatherService) {
     
@@ -21,6 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getMoodactivities();
     
   }
 
@@ -32,12 +33,12 @@ export class AppComponent implements OnInit {
     
 
   }
-  getCustomers() {
-    return this.weather.getCustomers()
+  getMoodactivities() {
+    return this.weather.getMoodactivities()
                .subscribe(
-                 customers => {
-                  console.log('magsahgdhas',customers);
-                  this.customers = customers
+                 moodactivities => {
+                  console.log('magsahgdhas',moodactivities);
+                  this.moodactivities = moodactivities
                  }
                 );
  }

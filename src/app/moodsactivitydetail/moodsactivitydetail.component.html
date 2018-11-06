@@ -1,0 +1,95 @@
+
+ 
+<div [hidden]="!submitted" style="align-items: centre;">
+    <p style="color: rgb(3, 28, 245); margin-left: 80px; background-color: rgb(233, 248, 16);  font-size: 20px; font-family:Verdana, Geneva, Tahoma, sans-serif ">{{message}}</p>
+</div>
+<div class="details-page__wrapper-dark">
+  
+
+  <svg class="back__button" routerLink="" viewBox="4085 152 98.5 126">
+    <defs>
+      <style>.a {
+        fill: #0821fc;
+      }
+
+      .b {
+        fill: rgba(0, 0, 0, 0);
+      }
+
+      .b, .c {
+        stroke: #e0ff03;
+        stroke-width: 2px;
+      }
+
+      .c {
+        fill: none;
+      }
+
+      .d {
+        fill: #fff;
+        font-size: 15px;
+        font-family: SegoeUI, Segoe UI;
+        letter-spacing: 0.4em;
+      }</style>
+    </defs>
+    <g transform="translate(3980)">
+      <circle class="a" cx="39" cy="39" r="39" transform="translate(105 152)"/>
+      <line class="b" x1="50" transform="translate(123.5 190.5)"/>
+      <line class="b" y1="26" x2="26" transform="translate(123.5 164.5)"/>
+      <line class="c" x1="26" y1="26" transform="translate(123.5 190.5)"/>
+      <text class="d" transform="translate(117 274)">
+        <tspan x="0" y="0">BACK</tspan>
+      </text>
+    </g>
+  </svg>
+
+  <section class="main-weather__card-dark">
+
+
+    <main class="body-content__wrapper">
+        <h4 class="city-name__text"><span class="badge badge-light city-name__text ">{{moodactivity.id}}</span> -> {{moodactivity.mood}}</h4>
+       
+       
+
+        <div [hidden]="submitted">
+            <form #detailMoodactivityForm="ngForm">
+              <div class="form-group">
+                <label class="city-name__text" for="mood">Mood</label>
+                <input type="text" class="form-control searchTerm" id="mood" required 
+                [(ngModel)]="moodactivity.mood" name="mood" #mood="ngModel">
+                <div [hidden]="mood.valid || mood.pristine"
+                     class="alert alert-danger">
+                    Mood is required
+                </div>
+              </div>
+              
+              <div class="form-group">
+                <label class="city-name__text" for="activity">Activity</label>
+                <input type="text" class="form-control searchTerm" id="activity" required
+                [(ngModel)]="moodactivity.activity" name="activity" #activity="ngModel">
+                <div [hidden]="activity.valid || activity.pristine"
+                     class="alert alert-danger">
+                   Activity is required
+                </div>
+              </div>
+              <br />
+              <br />
+              <br />
+              <div>
+              <div class="btn-group btn-group-sm">
+                <button type="button" class="searchButton" (click)="delete()">Delete</button>
+              </div>
+             
+              <div class="btn-group btn-group-sm">
+                 <button type="button" class="updatebtn" (click)="update()">Update</button>
+                </div>
+              </div>
+            </form>
+        </div>
+      <h1>  The weather was &nbsp;&nbsp;{{moodactivity.weathere}} while temperature was&nbsp;&nbsp;{{moodactivity.tempe}}° on {{moodactivity.createdAt}}</h1>
+
+    </main>
+
+  </section>
+
+</div>

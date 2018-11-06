@@ -42,8 +42,7 @@ export class DetailsComponent implements OnInit {
        this.weather.getWeather(this.city).subscribe(res => {
         console.log (res ,'ryt');
         this.tod=res;
-      // var state = res.state.main;
-      //  console.log(state,'status ya leo');
+     
         });
       
         

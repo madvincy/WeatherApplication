@@ -11,9 +11,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {WeatherCardComponent} from './ui/weather-card/weather-card.component';
 import {AddCardComponent} from './ui/add-card/add-card.component';
 import { SuggestionCardComponent } from './ui/suggestion-card/suggestion-card.component';
-
-import { GeolocationService } from './geolocation.service';
 import { FormsModule } from '@angular/forms';
+import { MoodsactivitydetailComponent } from './moodsactivitydetail/moodsactivitydetail.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,8 @@ import { FormsModule } from '@angular/forms';
     AddCardComponent,
 
     AddCardComponent,
-    SuggestionCardComponent
+    SuggestionCardComponent,
+    MoodsactivitydetailComponent
 
   ],
   imports: [
@@ -36,7 +36,7 @@ import { FormsModule } from '@angular/forms';
   providers: [
     WeatherService,
     
-    GeolocationService
+
 
   ],
   bootstrap: [AppComponent]

@@ -3,18 +3,10 @@
   <nav class="slide-menu" [ngClass]="{'slide-menu-active': showMenu}" (click)="$event.stopImmediatePropagation();">
     <section class="menu-header">
       <span class="greeting__text">HISTORY</span>
-      <div class="profile-image__container">
-        <img src="" alt="profile-image"
-             class="profile__image">
-      </div>
-      <div class="account-details">
-        <span class="name__text">Eugene</span>
-        <span class="email__text">Ampath@gmail.com</span>
-      </div>
     </section>
-    <section class="menu-body">
-      <div *ngFor="let cust of customers">
-      <a [routerLink]="['/customers', cust.id]" style="color:black"><span class="badge badge-dark">{{cust.id}}</span> -> {{ cust.mood }}</a>
+    <section class="menu-body ">
+      <div class="add__card" *ngFor="let mudact of moodactivities">
+      <a [routerLink]="['/moodsactivities', mudact.id]" style="color:white"><span class="badge ">{{mudact.id}}</span>  {{ mudact.mood }}</a>
      </div>
 
     </section>

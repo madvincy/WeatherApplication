@@ -2,8 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Subject, Observable, of, observable } from 'rxjs';
 import { City } from '../../weather';
-import { moodactivity } from '../../moodactivity';
-import { Customer } from '../../customer';
+import { Moodsactivity } from '../../moodsactivity';
 import { catchError, map, tap } from 'rxjs/operators';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -12,34 +11,35 @@ const httpOptions = {
 
 @Injectable()
 export class WeatherService {
-  private customersUrl = 'http://localhost:8080/api/customers'; 
+  private moodactivitiesUrl = 'http://localhost:8080/api/moodsactivities'; 
 
   constructor(public http: HttpClient) {
   }
-  getCustomers (): Observable<Customer[]> {
-    return this.http.get<Customer[]>(this.customersUrl)
+  
+  getMoodactivities (): Observable<Moodsactivity[]> {
+    return this.http.get<Moodsactivity[]>(this.moodactivitiesUrl);
    
   }
-
-  getCustomer(id: number): Observable<Customer> {
-    const url = `${this.customersUrl}/${id}`;
-    return this.http.get<Customer>(url);
+ 
+  getMoodsactivity(id: number): Observable<Moodsactivity> {
+    const url = `${this.moodactivitiesUrl}/${id}`;
+    return this.http.get<Moodsactivity>(url);
   }
 
-  addCustomer (customer: Customer): Observable<Customer> {
-    return this.http.post<Customer>(this.customersUrl, customer, httpOptions);
+  addMoodsactivity (moodactivity: Moodsactivity): Observable<Moodsactivity> {
+    return this.http.post<Moodsactivity>(this.moodactivitiesUrl, moodactivity, httpOptions);
     
   }
 
-  deleteCustomer (customer: Customer | number): Observable<Customer> {
-    const id = typeof customer === 'number' ? customer : customer.id;
-    const url = `${this.customersUrl}/${id}`;
+  deleteMoodsactivity (moodactivity: Moodsactivity | number): Observable<Moodsactivity> {
+    const id = typeof moodactivity === 'number' ? moodactivity : moodactivity.id;
+    const url = `${this.moodactivitiesUrl}/${id}`;
 
-    return this.http.delete<Customer>(url, httpOptions);
+    return this.http.delete<Moodsactivity>(url, httpOptions);
   }
 
-  updateCustomer (customer: Customer): Observable<any> {
-    return this.http.put(this.customersUrl, customer, httpOptions);
+  updateMoodsactivity (moodactivity: Moodsactivity): Observable<any> {
+    return this.http.put(this.moodactivitiesUrl, moodactivity, httpOptions);
   }
   getWeather (city: string,metric: 'metric'| 'imperial' = 'metric'): Observable <any>{
     const apicall =`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`;
@@ -57,28 +57,6 @@ export class WeatherService {
     }))
 
   }
-
-  getCityWeatherByName(city: string, metric: 'metric' | 'imperial' = 'metric'): Subject<string> {
-    const dataSub = new Subject<string>();
-    this.http.get(
-      `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
-      .subscribe((data) => {
-        dataSub.next(data['weather']);
-      }, (err) => {
-        console.log(err);
-      });
-    return dataSub;
-  }
-    
-  getCitiesWeathersByNames(cities: Array<string>, metric: 'metric' | 'imperial' = 'metric'): Subject<any> {
-    const citiesSubject = new Subject();
-    cities.forEach((city) => {
-      citiesSubject.next(this.http.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`));
-    });
-    return citiesSubject;
-  }
-
   getWeatherState(city: string): Subject<string> {
     const dataSubject = new Subject<string>();
     this.http.get(
@@ -96,7 +74,7 @@ export class WeatherService {
       `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=${metric}&APPID=2f9ba3daddf0e9de5a568b3b887a4246`)
       .subscribe((weather: any) => {
         dataSubject.next(weather);
-        console.log('seke',dataSubject);
+      
       });
     return dataSubject;
   }

@@ -1,4 +1,4 @@
-<section class="weather__card" (click)="openDetails()" >
+<section *ngIf="tod" class="weather__card" (click)="openDetails()" >
   <span class="city-name__text">{{city}}</span>
   <div class="weather-icon__container" [ngSwitch]="true">
     <svg *ngSwitchCase="condition === 'Clouds'|| condition === 'thunderstorm'" viewBox="2436.9 -843.1 275.5 274.1">
