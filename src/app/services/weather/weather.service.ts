@@ -12,6 +12,7 @@ const httpOptions = {
 
 @Injectable()
 export class WeatherService {
+  // base route
   private customersUrl = 'http://localhost:8080/api/customers'; 
 
   constructor(public http: HttpClient) {
